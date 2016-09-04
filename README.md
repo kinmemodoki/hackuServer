@@ -10,7 +10,7 @@ URLは暫定
     longitude=139.545242&
     distance=100&
     azimuth=90.000000&
-    category="中華";
+    category="中華"
 
 ##レスポンス
 
