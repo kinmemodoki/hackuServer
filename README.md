@@ -1,6 +1,6 @@
-**gnaviのやつ返す奴**
+####gnaviのやつ返す奴
 
-*使い方*
+##使い方
 
 URLは暫定
 
@@ -11,7 +11,7 @@ URLは暫定
     distance=100&
     azimuth=90.000000;
 
-*レスポンス*
+##レスポンス
 
     var json = {
         errorCode:0,
@@ -24,7 +24,7 @@ URLは暫定
         }
     }
     
-*仕様*
+##仕様
 
 クエリの*latitude*と*longitude*から*azimuth*の方位角に向かって*distance*(m)分先の座標を返す
 
