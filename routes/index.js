@@ -13,8 +13,9 @@ var json = {
         longitude:"139.545242"
     }
 }
+var errorJson = {errorCode:1,data:{}};
 
-function getJson(lat,lng,dis,azi,callback){
+function getJson(lat,lng,dis,azi,cate,callback){
   var latlng = zahyo.compute(lat,lng,dis,azi);
   var tergetLat = latlng[0];
   var tergetLng = latlng[1];
@@ -25,6 +26,7 @@ function getJson(lat,lng,dis,azi,callback){
       format:"json",
       latitude:tergetLat,
       longitude:tergetLng,
+      freeword:cate,
       range:2
     })
     .end(function(err, gnavi){
@@ -33,12 +35,12 @@ function getJson(lat,lng,dis,azi,callback){
       if(err||gnavi.text.total_hit_count=="0"){
         if(dis>600&&gnavi.text.total_hit_count=="0"){
           //もっと近くを検索
-          getJson(lat,lng,dis+-300,azi,callback);
+          getJson(lat,lng,dis+-300,azi,cate,callback);
         }else{
-          return {errorCode:1,data:{}};
+          return errorJson;
         }
       }else{
-        console.log();
+        console.log(JSON.parse(gnavi.text));
         callback(err,JSON.parse(gnavi.text));
       }
     });
@@ -50,19 +52,27 @@ router.get('/', function(req, res, next) {
   var lng = req.query.longitude||139.545242;
   var dis = req.query.distance||0;
   var azi = req.query.azimuth||0;
+  var cate = req.query.category;
   
-  getJson(lat,lng,dis,azi,function(err,gnavi){
-    var json = {
-      errorCode:0,
-      data:{
-        name:gnavi.rest[0].name,
-        address:gnavi.rest[0].address,
-        url:gnavi.rest[0].url,
-        latitude:gnavi.rest[0].latitude,
-        longitude:gnavi.rest[0].longitude
-      }
-    };
-    res.send(json);
+  
+  
+  getJson(lat,lng,dis,azi,cate,function(err,gnavi){
+    if(err){
+      res.send(errorJson);
+    }else{
+      var json = {
+        errorCode:0,
+        data:{
+          name:gnavi.rest[0].name,
+          address:gnavi.rest[0].address,
+          url:gnavi.rest[0].url,
+          latitude:gnavi.rest[0].latitude,
+          longitude:gnavi.rest[0].longitude,
+          image:gnavi.rest[0].image_url.shop_image1
+        }
+      };
+      res.send(json);
+    }
   });
 });
 
