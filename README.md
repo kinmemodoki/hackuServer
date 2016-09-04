@@ -11,6 +11,7 @@ URLは暫定
     distance=100&
     azimuth=90.000000&
     category="中華"
+    
 
 ##レスポンス
 
