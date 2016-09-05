@@ -27,23 +27,25 @@ function getJson(lat,lng,dis,azi,cate,callback){
       latitude:tergetLat,
       longitude:tergetLng,
       freeword:cate,
-      range:2
+      range:2,
+      hit_per_page:1
     })
     .end(function(err, gnavi){
       //gnavi = JSON.parse(gnavi);
-      //console.log(gnavi.text);
-      if(gnavi.text.error!=null)
-        return errorJson;
-      if(err||gnavi.text.total_hit_count=="0"){
-        if(dis>600&&gnavi.text.total_hit_count=="0"){
+      //console.log(typeof gnavi.text);
+      var tmp = JSON.parse(gnavi.text);
+      console.log(tmp);
+      if(err||tmp.error){
+        console.log("error");
+        if(dis>600&&tmp.error||0){
           //もっと近くを検索
-          getJson(lat,lng,dis+-300,azi,cate,callback);
+          getJson(lat,lng,dis+-500,azi,cate,callback);
         }else{
-          return errorJson;
+          callback(errorJson,tmp);
         }
       }else{
-        console.log(JSON.parse(gnavi.text));
-        callback(err,JSON.parse(gnavi.text));
+        console.log(typeof tmp);
+        callback(err,tmp);
       }
     });
 }
@@ -65,12 +67,12 @@ router.get('/', function(req, res, next) {
       var json = {
         errorCode:0,
         data:{
-          name:gnavi.rest[0].name,
-          address:gnavi.rest[0].address,
-          url:gnavi.rest[0].url,
-          latitude:gnavi.rest[0].latitude,
-          longitude:gnavi.rest[0].longitude,
-          image:gnavi.rest[0].image_url.shop_image1
+          name:gnavi.rest.name,
+          address:gnavi.rest.address,
+          url:gnavi.rest.url,
+          latitude:gnavi.rest.latitude,
+          longitude:gnavi.rest.longitude,
+          image:gnavi.rest.image_url.shop_image1
         }
       };
       res.send(json);
