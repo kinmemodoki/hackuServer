@@ -22,7 +22,7 @@ function getJson(lat,lng,dis,azi,cate,callback){
   request
     .get("http://api.gnavi.co.jp/RestSearchAPI/20150630")
     .query({
-      keyid:"ce847a4f79dbaa44271020a33d3f8f06",
+      keyid:"",
       format:"json",
       latitude:tergetLat,
       longitude:tergetLng,
@@ -32,6 +32,8 @@ function getJson(lat,lng,dis,azi,cate,callback){
     .end(function(err, gnavi){
       //gnavi = JSON.parse(gnavi);
       //console.log(gnavi.text);
+      if(gnavi.text.error!=null)
+        return errorJson;
       if(err||gnavi.text.total_hit_count=="0"){
         if(dis>600&&gnavi.text.total_hit_count=="0"){
           //もっと近くを検索
