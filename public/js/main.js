@@ -13,7 +13,13 @@ function geoSuccess(position) {
   lat = position.coords.latitude;
   lng = position.coords.longitude;
   console.log(lat,lng);
-  return([lat,lng]);
+  alert(lat);
+  document.getElementById("sensor").addEventListener('touchstart', function(event) {
+	  document.getElementById("massage").innerText = "Shake!!";
+	  $("#hand").addClass("vi");
+	  //ホールドしたらシェイクを検知する．
+    window.addEventListener('devicemotion', shake, false);
+  });
 }
 
 navigator.geolocation.getCurrentPosition(geoSuccess);
@@ -42,14 +48,6 @@ function shake(event){ //デバイスが動いたときに発火
 		});
   }
 }
-
-document.getElementById("sensor").addEventListener('touchstart', function(event) {
-	document.getElementById("massage").innerText = "Shake!!";
-	$("#hand").addClass("vi");
-	//ホールドしたらシェイクを検知する．
-  window.addEventListener('devicemotion', shake, false);
-});
-
 document.getElementById("sensor").addEventListener('touchend', function(event) {
 	document.getElementById("massage").innerText = "Hold Screen";
 	$("#hand").removeClass("vi");
