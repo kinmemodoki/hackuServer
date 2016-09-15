@@ -1,4 +1,4 @@
-﻿function VincentyDirect(ellipse, lat, lng, azimuth1, distance, imax) {
+function VincentyDirect(ellipse, lat, lng, azimuth1, distance, imax) {
 
     var a = ellipse.a, b = ellipse.b, f = ellipse.f;
 

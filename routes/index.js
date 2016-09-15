@@ -9,8 +9,8 @@ var json = {
         name:"食神 餃子王",
         address:"〒182-0026 東京都調布市小島町1-5-1",
         url:"http://r.gnavi.co.jp/dw0pykma0000/?ak=EbE9h4iD4t8%2F7JyV1oJRuzhuPIXl67km3TCJ2iVsRdQ%3D",
-        latitude:"35.652414",
-        longitude:"139.545242"
+        latitude:"35.655769",
+        longitude:"139.542053"
     }
 }
 var errorJson = {errorCode:1,data:{}};
@@ -28,7 +28,9 @@ function getJson(lat,lng,dis,azi,cate,callback){
       longitude:tergetLng,
       freeword:cate,
       range:2,
-      hit_per_page:1
+      hit_per_page:1,
+      input_coordinates_mode:2,
+      coordinates_mode:2
     })
     .end(function(err, gnavi){
       //gnavi = JSON.parse(gnavi);
@@ -56,13 +58,13 @@ function getJson(lat,lng,dis,azi,cate,callback){
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var lat = req.query.latitude||35.652414;
-  var lng = req.query.longitude||139.545242;
+  var lat = req.query.latitude||35.655769;
+  var lng = req.query.longitude||139.542053;
   var dis = req.query.distance||0;
   var azi = req.query.azimuth||0;
   var cate = req.query.category;
   
-  
+  if(lat=="undefined")lat=35.655769;
   
   getJson(lat,lng,dis,azi,cate,function(err,gnavi){
     if(err){
