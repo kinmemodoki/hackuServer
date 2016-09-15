@@ -38,7 +38,7 @@ function shake(event){ //デバイスが動いたときに発火
   	$("#hand").attr({"src": "./img/point.png"});
   	$("#hand").removeClass("vi");
   	document.getElementById("sensor").addEventListener('touchend', function(event) {
-  		location.href = "./result?category="+category+"&direction="+direction+"&shakeCount="+shakeCount;
+  		location.href = "./result?lat="+lat+"&lng="+lng+"category="+category+"&direction="+direction+"&shakeCount="+shakeCount;
 		});
   }
 }

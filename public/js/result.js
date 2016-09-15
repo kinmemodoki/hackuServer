@@ -4,17 +4,17 @@ function render(res){
     document.getElementById("url").innerText = res.data.url;
 }
 
-function getData(atitude,longitude,distance,azimuth,category){
+function getData(lat,lng,distance,azimuth,category){
     $.ajax({
         type: 'GET',
         url: 'http://hacku.kinmemodoki.net/rest',
-        data:{
-            latitude:,
-            longitude:,
-            distance:,
-            azimuth:,
-            category:
-        }
+        data: {
+            latitude:lat,
+            longitude:lng,
+            distance:distance,
+            azimuth:azimuth,
+            category:category
+        },
         dataType: 'json',
         success: function(response){
             //return response;
@@ -22,12 +22,18 @@ function getData(atitude,longitude,distance,azimuth,category){
         },
     	error: function(response){
             alart("server error!!");
-    	});
+        }
+    });
+}
+
+function shake2dis(count){
+    return count * 50;
 }
 
 window.onload = function(){
     var query = getUrlVars();
     console.log(query);
+    getData(query[lat],query[lng],shake2dis(query[shakeCount]),query[direction],query[category]);
 };
 
 function getUrlVars()
