@@ -1,4 +1,5 @@
 function render(res){
+    console.log(res);
     document.getElementById("massage").innerText = res.data.name;
     document.getElementById("address").innerText = res.data.address;
     document.getElementById("url").innerText = res.data.url;
@@ -27,14 +28,14 @@ function getData(lat,lng,distance,azimuth,category){
 }
 
 function shake2dis(count){
-    return count * 50;
+    return 300 + count * 50;
 }
 
 window.onload = function(){
     var query = getUrlVars();
     console.log(query);
-    getData(query[lat],query[lng],shake2dis(query[shakeCount]),query[direction],query[category]);
-};
+    getData(query.lat,query.lng,shake2dis(query.shakeCount),query.direction,decodeURI(query.category));
+}
 
 function getUrlVars()
 {
