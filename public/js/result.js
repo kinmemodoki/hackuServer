@@ -1,3 +1,5 @@
+var URL = "https://gnavi-rest-kinmemodoki.c9users.io/";
+
 function render(res){
     console.log(res);
     document.getElementById("massage").innerText = res.data.name;
@@ -8,7 +10,7 @@ function render(res){
 function getData(lat,lng,distance,azimuth,category){
     $.ajax({
         type: 'GET',
-        url: 'http://hacku.kinmemodoki.net/rest',
+        url: URL,
         data: {
             latitude:lat,
             longitude:lng,

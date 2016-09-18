@@ -57,7 +57,7 @@ function getJson(lat,lng,dis,azi,cate,callback){
 }
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/search', function(req, res, next) {
   res.render('main.jade',{
     title: ''
   });
@@ -69,7 +69,7 @@ router.get('/result', function(req, res, next) {
   });
 });
 
-router.get('/rest', function(req, res, next) {
+router.get('/', function(req, res, next) {
   var lat = req.query.latitude||35.655769;
   var lng = req.query.longitude||139.542053;
   var dis = req.query.distance||0;
